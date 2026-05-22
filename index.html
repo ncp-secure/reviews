@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Your Experience</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; text-align: center; padding: 40px 20px; background-color: #f9f9f9; color: #333; }
+        .container { max-width: 400px; margin: 0 auto; background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { margin-bottom: 10px; font-size: 22px; }
+        p { color: #666; font-size: 14px; margin-bottom: 30px; }
+        .button-group { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 20px; }
+        .rate-btn { flex: 1; border: 2px solid #e0e0e0; background: white; border-radius: 12px; padding: 15px 0; font-size: 24px; cursor: pointer; transition: all 0.2s ease; }
+        .rate-btn:active { transform: scale(0.95); background-color: #f0f0f0; }
+        .hidden { display: none !important; }
+        .action-link { display: inline-block; background: #dc3545; color: white; text-decoration: none; padding: 14px 24px; border-radius: 8px; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="rating-screen">
+        <h2>How was your visit today?</h2>
+        <p>Tap a rating to let us know.</p>
+        <div class="button-group">
+            <button class="rate-btn" onclick="lowRating()">😞</button>
+            <button class="rate-btn" onclick="lowRating()">😐</button>
+            <button class="rate-btn" onclick="lowRating()">🙂</button>
+            <button class="rate-btn" onclick="highRating()">😊</button>
+            <button class="rate-btn" onclick="highRating()">🤩</button>
+        </div>
+    </div>
+
+    <div id="negative-screen" class="hidden">
+        <h2>Thank you for your feedback!</h2>
+        <p>Your response has been logged internally. We want to make this right. Please reach out to our team directly so we can look into this for you immediately.</p>
+        <a href="https://wa.me/1234567890?text=I%20had%20an%20issue%20at%20your%20store" class="action-link">💬 Contact Support</a>
+    </div>
+</div>
+
+<script>
+    // EDIT THIS LINE: Paste your constructed Place ID at the very end of this URL
+    const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJQ10ibIrDRjcRnRwmGTRh3gY";
+
+    window.onload = function() {
+        if (localStorage.getItem("hasLeftPoorReview") === "true") {
+            document.getElementById('rating-screen').classList.add('hidden');
+            document.getElementById('negative-screen').classList.remove('hidden');
+        }
+    };
+
+    function highRating() {
+        window.location.href = GOOGLE_REVIEW_URL;
+    }
+
+    function lowRating() {
+        localStorage.setItem("hasLeftPoorReview", "true");
+        document.getElementById('rating-screen').classList.add('hidden');
+        document.getElementById('negative-screen').classList.remove('hidden');
+    }
+</script>
+
+</body>
+</html>
