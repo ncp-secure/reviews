@@ -33,15 +33,16 @@
 
     <div id="negative-screen" class="hidden">
         <h2>Thank you for your feedback!</h2>
-        <p>Your response has been logged internally. We want to make this right. Please reach out to our team directly so we can look into this for you immediately.</p>
-        <a href="https://wa.me/+918638673310?text=I%20had%20an%20issue%20at%20your%20store" class="action-link">💬 Contact Support</a>
+        <p>Your response has been logged internally. We genuinely want to make this right. If you wish to speak with our manager directly to resolve this issue, please tap below:</p>
+        <a href="https://wa.me/918638673310?text=I%20had%20an%20issue%20at%20your%20store" class="action-link">💬 Chat with Management</a>
     </div>
 </div>
 
 <script>
-    // EDIT THIS LINE: Paste your constructed Place ID at the very end of this URL
+    // Paste your Google Place ID link here
     const GOOGLE_REVIEW_URL = "https://search.google.com/local/writereview?placeid=ChIJQ10ibIrDRjcRnRwmGTRh3gY";
 
+    // When page loads, check if they are flagged
     window.onload = function() {
         if (localStorage.getItem("hasLeftPoorReview") === "true") {
             document.getElementById('rating-screen').classList.add('hidden');
@@ -54,7 +55,10 @@
     }
 
     function lowRating() {
+        // Flag their phone memory permanently
         localStorage.setItem("hasLeftPoorReview", "true");
+        
+        // ONLY change the screen text, DO NOT auto-redirect to WhatsApp anymore
         document.getElementById('rating-screen').classList.add('hidden');
         document.getElementById('negative-screen').classList.remove('hidden');
     }
